@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Every Student Known — Relational Frameworks for Schools</title>
+<meta name="description" content="Every Student Known is a relationship-mapping framework helping schools build psychological safety and belonging — one dot of connection at a time.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF9F6;
+    --ink:#1E293B;
+    --teal:#0D9488;
+    --amber:#F59E0B;
+    --slate-light:#E2E8F0;
+    --teal-10: rgba(13,148,136,0.10);
+    --amber-10: rgba(245,158,11,0.12);
+    --max: 1160px;
+    --display: 'Fraunces', Georgia, serif;
+    --body: 'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{ display:block; max-width:100%; }
+  a{ color:inherit; }
+  h1,h2,h3{ font-family:var(--display); font-weight:600; margin:0; color:var(--ink); }
+  p{ margin:0; }
+  .wrap{ max-width:var(--max); margin:0 auto; padding:0 32px; }
+  .eyebrow{
+    font-family:var(--body);
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--teal);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:7px; height:7px; border-radius:50%;
+    background:var(--amber);
+    display:inline-block;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:var(--body);
+    font-weight:600;
+    font-size:15px;
+    padding:13px 26px;
+    border-radius:999px;
+    border:1.5px solid transparent;
+    cursor:pointer;
+    text-decoration:none;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
+  }
+  .btn-primary{ background:var(--teal); color:#FAF9F6; }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 10px 22px -8px rgba(13,148,136,0.55); }
+  .btn-ghost{ background:transparent; color:var(--ink); border-color:var(--ink); }
+  .btn-ghost:hover{ background:var(--ink); color:var(--bg); }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(250,249,246,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--slate-light);
+  }
+  nav{
+    max-width:var(--max); margin:0 auto; padding:18px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px;
+    font-family:var(--display); font-weight:600; font-size:19px;
+    text-decoration:none; color:var(--ink);
+  }
+  .logo-mark{ width:30px; height:30px; }
+  .nav-links{ display:flex; align-items:center; gap:34px; list-style:none; margin:0; padding:0; }
+  .nav-links a{
+    text-decoration:none; font-size:15px; font-weight:500; color:var(--ink);
+    position:relative; padding-bottom:3px;
+  }
+  .nav-links a::after{
+    content:""; position:absolute; left:0; bottom:0; width:0; height:2px;
+    background:var(--amber); transition:width .2s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
+  .nav-cta{ display:flex; align-items:center; gap:22px; }
+  .hamburger{ display:none; background:none; border:none; cursor:pointer; padding:6px; }
+  .hamburger span{ display:block; width:22px; height:2px; background:var(--ink); margin:5px 0; }
+
+  /* ---------- HERO ---------- */
+  .hero{ padding:88px 0 60px; overflow:hidden; }
+  .hero .wrap{
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(38px, 5vw, 60px);
+    line-height:1.06;
+    letter-spacing:-0.01em;
+    margin:18px 0 22px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    font-family:var(--body);
+    font-weight:600;
+    color:var(--teal);
+    letter-spacing:-0.01em;
+  }
+  .hero p.sub{
+    font-size:18px; color:#3f4c5f; max-width:480px; margin-bottom:34px;
+  }
+  .hero-ctas{ display:flex; gap:16px; flex-wrap:wrap; }
+  .hero-visual{ position:relative; }
+  .hero-visual svg{ width:100%; height:auto; }
+  .dot-line{
+    stroke:var(--teal);
+    stroke-width:1.6;
+    fill:none;
+    stroke-dasharray:340;
+    stroke-dashoffset:340;
+    animation:draw 1.6s ease forwards;
+  }
+  .dot-line.amber{ stroke:var(--amber); }
+  .dot-line.delay1{ animation-delay:.25s; }
+  .dot-line.delay2{ animation-delay:.5s; }
+  .dot-line.delay3{ animation-delay:.75s; }
+  .node{ opacity:0; animation:pop .5s ease forwards; }
+  .node.d1{ animation-delay:.15s; }
+  .node.d2{ animation-delay:.45s; }
+  .node.d3{ animation-delay:.7s; }
+  .node.d4{ animation-delay:.95s; }
+  .node.d5{ animation-delay:1.15s; }
+  .node.core{ animation-delay:0s; }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+  @keyframes pop{ from{ opacity:0; transform:scale(0.4); } to{ opacity:1; transform:scale(1); } }
+
+  /* ---------- SECTION SCAFFOLDING ---------- */
+  section{ padding:96px 0; }
+  .section-head{ max-width:640px; margin-bottom:56px; }
+  .section-head h2{ font-size:clamp(28px,3.4vw,40px); margin:16px 0 18px; line-height:1.15; }
+  .section-head p{ font-size:17px; color:#3f4c5f; }
+
+  .arch-divider{ width:100%; height:56px; display:block; }
+
+  /* ---------- WHY THIS EXISTS ---------- */
+  .why-exists{ padding:0 0 88px; }
+  .why-exists-wrap{ max-width:760px; }
+  .why-exists .eyebrow{ margin-bottom:18px; }
+  .why-exists-lede{
+    font-family:var(--display); font-size:23px; line-height:1.4; font-weight:500;
+    color:var(--ink); margin-bottom:18px;
+  }
+  .why-exists p{ font-size:16px; color:#3f4c5f; margin-bottom:22px; }
+  .why-exists-link{
+    font-size:15px; font-weight:600; color:var(--teal); text-decoration:none;
+  }
+  .why-exists-link:hover{ text-decoration:underline; }
+
+  /* ---------- DOTS OF CONNECTION ---------- */
+  .connection{ background:var(--ink); color:var(--bg); position:relative; }
+  .connection .eyebrow{ color:var(--amber); }
+  .connection .eyebrow::before{ background:var(--teal); }
+  .connection .section-head p{ color:#C7D0DE; }
+  .connection-grid{
+    display:grid; grid-template-columns:1fr; gap:64px; max-width:640px;
+  }
+  .principles{ list-style:none; margin:0; padding:0; display:grid; gap:26px; }
+  .principles li{ display:flex; gap:16px; align-items:flex-start; }
+  .p-dot{
+    width:13px; height:13px; border-radius:50%; margin-top:6px; flex:none;
+  }
+  .principles li:nth-child(1) .p-dot{ background:var(--teal); }
+  .principles li:nth-child(2) .p-dot{ background:var(--amber); }
+  .principles li:nth-child(3) .p-dot{ background:var(--teal); }
+  .principles li:nth-child(4) .p-dot{ background:var(--amber); }
+  .principles h3{ color:var(--bg); font-size:18px; margin-bottom:4px; }
+  .principles p{ color:#B9C3D2; font-size:15px; }
+
+  .mini-label{
+    display:block; font-size:12px; font-weight:600; text-transform:uppercase;
+    letter-spacing:.1em; color:var(--amber); margin-bottom:16px;
+  }
+
+  .survey-note{
+    margin-top:30px;
+    padding:18px 20px;
+    border-radius:14px;
+    background:rgba(226,232,240,0.08);
+    border:1px solid #33415A;
+    font-size:14.5px;
+    color:#B9C3D2;
+    line-height:1.6;
+  }
+  .survey-note strong{ color:var(--bg); }
+
+  /* ---------- SERVICES ---------- */
+  .services-grid{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:28px;
+  }
+  .service-card{
+    background:var(--bg);
+    border:1px solid var(--slate-light);
+    border-radius:120px 120px 20px 20px;
+    padding:52px 34px 38px;
+    text-align:left;
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .service-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 20px 40px -20px rgba(30,41,59,0.25);
+    border-color:transparent;
+  }
+  .service-icon{
+    width:58px; height:58px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:24px;
+  }
+  .service-card:nth-child(odd) .service-icon{ background:var(--teal-10); }
+  .service-card:nth-child(even) .service-icon{ background:var(--amber-10); }
+  .service-card:nth-child(odd) .service-icon svg{ stroke:var(--teal); }
+  .service-card:nth-child(even) .service-icon svg{ stroke:var(--amber); }
+  .service-card h3{ font-size:21px; margin-bottom:10px; }
+  .service-card p{ font-size:15px; color:#3f4c5f; }
+
+  .status-pill{
+    display:inline-flex; align-items:center; gap:9px;
+    margin-top:24px;
+    padding:10px 18px;
+    border-radius:999px;
+    background:var(--amber-10);
+    border:1px solid rgba(245,158,11,0.35);
+    font-size:14px; font-weight:600; color:#92610A;
+  }
+  .status-pill::before{
+    content:""; width:7px; height:7px; border-radius:50%; background:var(--amber); flex:none;
+  }
+
+  /* ---------- FIELD NOTES ---------- */
+  .notes-section{ background:var(--bg); }
+  .notes-list{ display:flex; flex-direction:column; gap:0; border-top:1px solid var(--slate-light); }
+  .note-card{
+    display:grid; grid-template-columns:140px 1fr; gap:28px;
+    padding:28px 0; border-bottom:1px solid var(--slate-light);
+    text-decoration:none; color:inherit;
+  }
+  .note-date{ font-size:13px; font-weight:600; color:var(--teal); letter-spacing:.03em; padding-top:3px; }
+  .note-card h3{ font-size:19px; margin-bottom:6px; }
+  .note-card p{ font-size:15px; color:#3f4c5f; }
+  .note-card.placeholder{ opacity:0.65; }
+  .note-card.placeholder .note-date{ color:#8896AA; }
+  .note-card.placeholder h3{ color:#5C6B80; font-weight:500; font-family:var(--body); font-size:17px; }
+  .notes-foot{ margin-top:28px; font-size:14.5px; color:#5C6B80; }
+  .notes-foot a{ color:var(--teal); font-weight:600; text-decoration:none; }
+  .notes-foot a:hover{ text-decoration:underline; }
+
+  @media (max-width:600px){
+    .note-card{ grid-template-columns:1fr; gap:6px; }
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact{ background:var(--slate-light); }
+  .contact-grid{
+    display:grid; grid-template-columns:0.85fr 1.15fr; gap:60px;
+  }
+  .contact-info h2{ font-size:clamp(26px,3vw,36px); margin-bottom:18px; }
+  .contact-info p{ color:#3f4c5f; font-size:16px; margin-bottom:28px; }
+  .contact-detail{ display:flex; gap:12px; align-items:center; margin-bottom:14px; font-size:15px; }
+  .contact-detail .p-dot{ width:8px; height:8px; }
+  .contact-form{
+    background:var(--bg);
+    border-radius:24px;
+    padding:40px;
+    border:1px solid #D9DEE7;
+  }
+  .form-row{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:18px; }
+  .field{ display:flex; flex-direction:column; gap:7px; }
+  .field.full{ grid-column:1 / -1; }
+  label{ font-size:13px; font-weight:600; color:var(--ink); }
+  input, select, textarea{
+    font-family:var(--body);
+    font-size:15px;
+    padding:12px 14px;
+    border-radius:10px;
+    border:1.5px solid #D9DEE7;
+    background:var(--bg);
+    color:var(--ink);
+    outline:none;
+    transition:border-color .18s ease, box-shadow .18s ease;
+  }
+  input:focus, select:focus, textarea:focus{
+    border-color:var(--teal);
+    box-shadow:0 0 0 3px var(--teal-10);
+  }
+  textarea{ resize:vertical; min-height:110px; font-family:var(--body); }
+  .submit-row{ margin-top:6px; display:flex; align-items:center; gap:16px; }
+  .form-note{ font-size:13px; color:#5C6B80; }
+  .form-success{
+    display:none; align-items:center; gap:10px; font-size:14.5px; color:var(--teal); font-weight:600;
+  }
+  .form-success.show{ display:flex; }
+
+  /* ---------- FOOTER ---------- */
+  footer{ background:var(--ink); color:var(--bg); padding:56px 0 30px; }
+  .footer-top{
+    display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:32px;
+    padding-bottom:38px; border-bottom:1px solid #33415A;
+  }
+  .footer-logo{ display:flex; align-items:center; gap:10px; font-family:var(--display); font-size:19px; font-weight:600; }
+  .footer-links{ display:flex; gap:30px; list-style:none; padding:0; margin:0; flex-wrap:wrap; }
+  .footer-links a{ text-decoration:none; color:#C7D0DE; font-size:14.5px; }
+  .footer-links a:hover{ color:var(--amber); }
+  .footer-bottom{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+    padding-top:24px; font-size:13px; color:#8896AA;
+  }
+  .footer-domains{ display:flex; gap:16px; }
+  .footer-domains span{ color:#C7D0DE; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:880px){
+    .hero .wrap{ grid-template-columns:1fr; }
+    .hero-visual{ order:-1; max-width:380px; margin:0 auto; }
+    .connection-grid{ grid-template-columns:1fr; }
+    .services-grid{ grid-template-columns:1fr; }
+    .contact-grid{ grid-template-columns:1fr; }
+    .nav-links, .nav-cta .btn-ghost{ display:none; }
+    .hamburger{ display:block; }
+    nav.open .nav-links{
+      display:flex; flex-direction:column; gap:18px;
+      position:absolute; top:100%; left:0; right:0;
+      background:var(--bg); padding:24px 32px; border-bottom:1px solid var(--slate-light);
+    }
+    .form-row{ grid-template-columns:1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .dot-line{ animation:none; stroke-dashoffset:0; }
+    .node{ animation:none; opacity:1; }
+    *{ transition-duration:0.001ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav id="mainNav">
+    <a href="#top" class="logo">
+      <svg class="logo-mark" viewBox="0 0 32 32" fill="none">
+        <circle cx="8" cy="10" r="3" fill="#0D9488"/>
+        <circle cx="24" cy="8" r="3" fill="#F59E0B"/>
+        <circle cx="16" cy="22" r="3" fill="#0D9488"/>
+        <circle cx="26" cy="24" r="2.4" fill="#F59E0B"/>
+        <path d="M10.5 11.5L14.5 20M18.5 20.5L23 10.5M18 22L24 23.3" stroke="#1E293B" stroke-width="1.3" stroke-linecap="round"/>
+      </svg>
+      Every Student Known
+    </a>
+    <ul class="nav-links">
+      <li><a href="#framework">Framework</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#notes">Field Notes</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#contact" class="btn btn-ghost">Get in touch</a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- ---------- HERO ---------- -->
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">A relational framework for schools</span>
+        <h1>Every student, <em>known</em> by name, known by story.</h1>
+        <p class="sub">Every Student Known helps schools map the relationships that already exist in their buildings — and close the gaps for the students who've slipped through. Grounded in Danielle Paoni's work on relational connection and psychological safety, built for the realities of rural schools.</p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn btn-primary">Join the list</a>
+          <a href="#framework" class="btn btn-ghost">See the framework ↓</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <svg viewBox="0 0 420 380" fill="none">
+          <line class="dot-line" x1="210" y1="190" x2="90" y2="90" />
+          <line class="dot-line delay1" x1="210" y1="190" x2="330" y2="70" />
+          <line class="dot-line delay2 amber" x1="210" y1="190" x2="80" y2="290" />
+          <line class="dot-line delay3" x1="210" y1="190" x2="320" y2="300" />
+          <line class="dot-line delay1" x1="90" y1="90" x2="330" y2="70" />
+          <line class="dot-line delay3 amber" x1="80" y1="290" x2="320" y2="300" />
+          <circle class="node core" cx="210" cy="190" r="13" fill="#0D9488"/>
+          <circle class="node d1" cx="90" cy="90" r="9" fill="#1E293B"/>
+          <circle class="node d2" cx="330" cy="70" r="9" fill="#F59E0B"/>
+          <circle class="node d3" cx="80" cy="290" r="9" fill="#1E293B"/>
+          <circle class="node d4" cx="320" cy="300" r="9" fill="#F59E0B"/>
+          <circle class="node d5" cx="210" cy="60" r="6" fill="#0D9488"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- WHY THIS EXISTS ---------- -->
+  <section class="why-exists">
+    <div class="wrap why-exists-wrap">
+      <span class="eyebrow">Why this exists</span>
+      <p class="why-exists-lede">Every Student Known didn't start as a school-culture initiative. It started with a mental health counselor sitting across from students carrying real trauma, in a rural community with almost nowhere close by to send them for care.</p>
+      <p>When the nearest support is an hour's drive away, the adults already in the building become the safety net — whether the school planned for that or not. ESK is how we made that safety net intentional instead of accidental: broadening the circle of trusted adults, tracking who's actually known and who isn't, and treating that connection as protective. Schools using it have seen real movement in the indicators that matter most — attendance, disclosed risk, and students staying enrolled long enough to earn their diploma and change their own trajectory.</p>
+      <a href="why-every-student-known-exists.html" class="why-exists-link">Read the full story →</a>
+    </div>
+  </section>
+
+  <!-- ---------- DOTS OF CONNECTION ---------- -->
+  <section class="connection" id="framework">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">The framework</span>
+        <h2>Dots of Connection</h2>
+        <p>Every student in the building gets a row. Every adult marks what they actually know, across four categories — not a feeling, a fact. No lines, no claimed relationships. Just a clear, honest record of where every student already has a dot, and where they don't yet.</p>
+      </div>
+      <div class="connection-grid">
+        <div>
+          <span class="mini-label">The four principles</span>
+          <ul class="principles">
+            <li>
+              <span class="p-dot"></span>
+              <div>
+                <h3>Belonging</h3>
+                <p>Every student can name at least one adult in the building who would notice if they were gone.</p>
+              </div>
+            </li>
+            <li>
+              <span class="p-dot"></span>
+              <div>
+                <h3>Visibility</h3>
+                <p>Staff can see the whole sheet — not just their own caseload — so gaps don't stay hidden in one person's memory.</p>
+              </div>
+            </li>
+            <li>
+              <span class="p-dot"></span>
+              <div>
+                <h3>Consistency</h3>
+                <p>Connection is a practice built into the school week, not left to chance or a single advisor's memory.</p>
+              </div>
+            </li>
+            <li>
+              <span class="p-dot"></span>
+              <div>
+                <h3>Trust</h3>
+                <p>Psychological safety for students starts with psychological safety for staff — so both get tracked, not just assumed.</p>
+              </div>
+            </li>
+          </ul>
+          <div class="survey-note">
+            <strong>Companion student survey.</strong> Students complete a matching self-report survey across the same four tracking categories — Name &amp; Face, Scholastic, Extracurricular, and Would Reach Out — so staff perception and student experience can be checked against each other, not assumed.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- SERVICES ---------- -->
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">How we work with schools</span>
+        <h2>Consulting built for the school you actually run</h2>
+        <p>Every engagement starts with your building's real map — not a generic rollout. From a one-day audit to a multi-year partnership, the work scales to your staff, your calendar, and your community.</p>
+        <div class="status-pill">Not taking new consulting engagements right now — join the list below and I'll reach out when that changes.</div>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke-width="1.6" stroke-linecap="round">
+              <circle cx="7" cy="7" r="2.4"/><circle cx="19" cy="6" r="2.4"/><circle cx="13" cy="19" r="2.4"/>
+              <line x1="8.6" y1="8.6" x2="17.4" y2="7.4"/><line x1="8" y1="9" x2="12" y2="17"/><line x1="18" y1="8" x2="14" y2="17"/>
+            </svg>
+          </div>
+          <h3>Relationship Mapping Audit</h3>
+          <p>A full tracking sheet of every student across all four known-ness categories, cross-checked with the companion student survey — built from real staff and student input, not a form no one reads.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke-width="1.6" stroke-linecap="round">
+              <path d="M4 20c0-5 4-8 9-8s9 3 9 8"/><circle cx="13" cy="7" r="4"/>
+            </svg>
+          </div>
+          <h3>Staff Training &amp; Coaching</h3>
+          <p>Practical, low-lift routines that help every adult in the building — not just counselors — build and sustain student relationships.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke-width="1.6" stroke-linecap="round">
+              <rect x="4" y="4" width="8" height="8" rx="1.5"/><rect x="14" y="4" width="8" height="8" rx="1.5"/>
+              <rect x="4" y="14" width="8" height="8" rx="1.5"/><rect x="14" y="14" width="8" height="8" rx="1.5"/>
+            </svg>
+          </div>
+          <h3>Belonging Framework Implementation</h3>
+          <p>A structured rollout of Every Student Known across advisory, MTSS, and daily routines — with a plan your team can actually keep running.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke-width="1.6" stroke-linecap="round">
+              <path d="M13 3l3 6 6 1-4.5 4.5L18.5 21 13 17.8 7.5 21l1-6.5L4 10l6-1 3-6z"/>
+            </svg>
+          </div>
+          <h3>Rural School Partnerships</h3>
+          <p>Ongoing support built around small staffs, tight budgets, and the specific realities of belonging work outside the district resources of a big city.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- FIELD NOTES ---------- -->
+  <section class="notes-section" id="notes">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Resources, as they're ready</span>
+        <h2>Field notes</h2>
+        <p>Short writeups on relationship mapping, Early Warning Indicators, and what belonging work actually looks like in a rural building. Posted as I have something worth sharing — not on a fixed schedule while I finish my doctoral program.</p>
+      </div>
+
+      <div class="notes-list">
+        <!-- To add a real post: copy one of the placeholder blocks below,
+             remove the "placeholder" class, set a real date/title/description,
+             and wrap it in an <a href="..."> to the post itself. -->
+        <a class="note-card" href="why-every-student-known-exists.html">
+          <span class="note-date">Field Note</span>
+          <div>
+            <h3>Why Every Student Known Exists</h3>
+            <p>The story behind the framework — a rural community, a mental health counselor's caseload, and why connection became the intervention.</p>
+          </div>
+        </a>
+        <div class="note-card placeholder">
+          <span class="note-date">Coming soon</span>
+          <div>
+            <h3>More resources as the dissertation wraps up</h3>
+            <p>Facilitator guides, EWI templates, and implementation notes will land here as they're ready to share.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="notes-foot">Want to know the moment something new is posted? <a href="#contact">Join the list →</a></p>
+    </div>
+  </section>
+
+  <!-- ---------- CONTACT ---------- -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <span class="eyebrow">Stay connected</span>
+          <h2>Join the list</h2>
+          <p>I'm finishing my doctoral program right now, so I'm not able to take on new school partnerships just yet — and I'd rather tell you that up front than leave you waiting on a reply. Join the list and I'll let you know the moment that changes, plus you'll hear about new field notes as they go up.</p>
+          <div class="contact-detail"><span class="p-dot" style="background:var(--teal)"></span> hello@everystudentknown.com</div>
+          <div class="contact-detail"><span class="p-dot" style="background:var(--amber)"></span> everystudentknown.org</div>
+        </div>
+
+        <form class="contact-form" id="contactForm">
+          <div class="form-row">
+            <div class="field">
+              <label for="name">Full name</label>
+              <input type="text" id="name" name="name" placeholder="Jane Rivera" required>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="jane@yourschool.edu" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="school">School or district (optional)</label>
+              <input type="text" id="school" name="school" placeholder="Cedar Springs Public Schools">
+            </div>
+            <div class="field">
+              <label for="interest">What are you interested in?</label>
+              <select id="interest" name="interest">
+                <option value="">Select one</option>
+                <option>Field notes &amp; updates</option>
+                <option>Future consulting availability</option>
+                <option>Both</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field full">
+              <label for="message">Anything you want me to know? (optional)</label>
+              <textarea id="message" name="message" placeholder="No pressure — a note here isn't required to join the list."></textarea>
+            </div>
+          </div>
+          <div class="submit-row">
+            <button type="submit" class="btn btn-primary">Join the list</button>
+            <span class="form-note">No set reply time right now — but you're on the list.</span>
+            <span class="form-success" id="formSuccess">✓ You're on the list — thank you.</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-logo">
+        <svg width="26" height="26" viewBox="0 0 32 32" fill="none">
+          <circle cx="8" cy="10" r="3" fill="#0D9488"/>
+          <circle cx="24" cy="8" r="3" fill="#F59E0B"/>
+          <circle cx="16" cy="22" r="3" fill="#0D9488"/>
+          <path d="M10.5 11.5L14.5 20M18.5 20.5L23 10.5" stroke="#FAF9F6" stroke-width="1.3" stroke-linecap="round"/>
+        </svg>
+        Every Student Known
+      </div>
+      <ul class="footer-links">
+        <li><a href="#framework">Framework</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#notes">Field Notes</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Every Student Known. Relational frameworks for schools that see every dot.</span>
+      <div class="footer-domains">
+        <span>everystudentknown.com</span>
+        <span>everystudentknown.org</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav toggle
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const mainNav = document.getElementById('mainNav');
+  hamburgerBtn.addEventListener('click', () => {
+    mainNav.classList.toggle('open');
+  });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => mainNav.classList.remove('open'));
+  });
+
+  // Contact form — static demo submit handler.
+  // Connect to your form backend of choice (e.g. Formspree, Netlify Forms) before going live.
+  const contactForm = document.getElementById('contactForm');
+  const formSuccess = document.getElementById('formSuccess');
+  contactForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    formSuccess.classList.add('show');
+    contactForm.reset();
+  });
+</script>
+
+</body>
+</html>

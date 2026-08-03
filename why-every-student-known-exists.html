@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Every Student Known Exists — Every Student Known</title>
+<meta name="description" content="The origin story and theory of change behind Every Student Known: a relational framework born from mental health counseling in a rural school.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF9F6;
+    --ink:#1E293B;
+    --teal:#0D9488;
+    --amber:#F59E0B;
+    --slate-light:#E2E8F0;
+    --teal-10: rgba(13,148,136,0.10);
+    --amber-10: rgba(245,158,11,0.12);
+    --display: 'Fraunces', Georgia, serif;
+    --body: 'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:var(--bg); color:var(--ink); font-family:var(--body);
+    line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+  a{ color:inherit; }
+  .wrap{ max-width:720px; margin:0 auto; padding:0 32px; }
+
+  header{ border-bottom:1px solid var(--slate-light); padding:22px 0; }
+  header .wrap{ max-width:1160px; display:flex; align-items:center; justify-content:space-between; }
+  .logo{ display:flex; align-items:center; gap:10px; font-family:var(--display); font-weight:600; font-size:18px; text-decoration:none; color:var(--ink); }
+  .back-link{ font-size:14.5px; font-weight:600; color:var(--teal); text-decoration:none; }
+  .back-link:hover{ text-decoration:underline; }
+
+  main{ padding:64px 0 96px; }
+  .eyebrow{
+    text-transform:uppercase; letter-spacing:.14em; font-size:12.5px; font-weight:600;
+    color:var(--teal); display:inline-flex; align-items:center; gap:8px; margin-bottom:18px;
+  }
+  .eyebrow::before{ content:""; width:7px; height:7px; border-radius:50%; background:var(--amber); display:inline-block; }
+  h1{
+    font-family:var(--display); font-weight:600; font-size:clamp(30px,4.2vw,44px);
+    line-height:1.12; margin:0 0 16px;
+  }
+  .byline{ font-size:14.5px; color:#5C6B80; margin-bottom:44px; }
+
+  article p{ font-size:17.5px; color:#33415A; margin:0 0 24px; }
+  article p.lede{
+    font-family:var(--display); font-size:22px; font-weight:500; color:var(--ink); line-height:1.5;
+  }
+  article h2{
+    font-family:var(--display); font-weight:600; font-size:26px; color:var(--ink);
+    margin:52px 0 18px;
+  }
+  article ul{ margin:0 0 24px; padding-left:0; list-style:none; display:grid; gap:12px; }
+  article ul li{ display:flex; gap:12px; align-items:flex-start; font-size:17px; color:#33415A; }
+  article ul li::before{
+    content:""; width:7px; height:7px; border-radius:50%; background:var(--teal); margin-top:9px; flex:none;
+  }
+
+  .pillar{ margin-bottom:30px; }
+  .pillar h3{ font-family:var(--display); font-size:19.5px; font-weight:600; margin:0 0 6px; color:var(--ink); }
+  .pillar p{ margin:0; font-size:16.5px; color:#3f4c5f; }
+
+  .callout{
+    background:var(--teal-10); border-left:3px solid var(--teal);
+    border-radius:4px; padding:22px 26px; margin:36px 0; font-size:16px; color:#1c3a37;
+  }
+  .callout strong{ color:var(--ink); }
+
+  .resource-note{
+    background:var(--amber-10); border-left:3px solid var(--amber);
+    border-radius:4px; padding:20px 26px; margin:36px 0; font-size:15px; color:#5c4008;
+  }
+
+  blockquote{
+    font-family:var(--display); font-style:italic; font-size:22px; line-height:1.5;
+    color:var(--ink); border-left:3px solid var(--amber); padding-left:24px; margin:44px 0;
+  }
+
+  .cta-row{
+    margin-top:56px; padding-top:36px; border-top:1px solid var(--slate-light);
+    display:flex; align-items:center; gap:20px; flex-wrap:wrap;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; font-weight:600; font-size:15px;
+    padding:13px 26px; border-radius:999px; background:var(--teal); color:#FAF9F6; text-decoration:none;
+  }
+  .btn:hover{ opacity:.92; }
+
+  footer{ background:var(--ink); color:#C7D0DE; padding:40px 0; font-size:13px; }
+  footer .wrap{ max-width:1160px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+
+  @media (max-width:600px){
+    article p.lede{ font-size:19px; }
+    article h2{ font-size:22px; }
+    blockquote{ font-size:19px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="index.html" class="logo">Every Student Known</a>
+    <a href="index.html" class="back-link">← Back to home</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <span class="eyebrow">Field Note</span>
+    <h1>Why Every Student Known Exists</h1>
+    <p class="byline">By Danielle Paoni — Mental Health Counselor &amp; MTSS Coach</p>
+
+    <article>
+      <p class="lede">This didn't start as a school-culture initiative. It started in a counseling office, in a rural community, with students carrying more than any of us could see at a glance.</p>
+
+      <p>I work as a mental health counselor in a rural high school. In a community like ours, the nearest outside therapist, psychiatrist, or crisis service can be an hour away — sometimes more. For a family without reliable transportation, without flexible work hours, without insurance that covers the drive, "get your kid to counseling" isn't always a realistic instruction. It's a genuine barrier, not a lack of will.</p>
+
+      <p>At the same time, I was seeing students carrying real weight: adverse childhood experiences, trauma, abuse, and — for some — active suicidal ideation. Traditional systems like MTSS are good at catching academic and behavioral flags once they surface: a failing grade, a discipline referral, a spike in absences. What they weren't built to catch is the thing that often comes first — a student quietly becoming relationally invisible, with no adult in the building who would notice.</p>
+
+      <div class="resource-note">
+        If you or a student you know may be in crisis, the 988 Suicide &amp; Crisis Lifeline is available 24/7 by call or text at <strong>988</strong>.
+      </div>
+
+      <p>When the nearest formal mental health support is out of reach, the adults already inside the building — teachers, coaches, cafeteria staff, bus drivers, coaches, front office staff — become the most realistic safety net a rural student has. Every Student Known is what happened when we stopped leaving that safety net to chance and started building it on purpose.</p>
+
+      <h2>The Fundamental Belief</h2>
+      <p><strong>Belonging is not accidental — it is an organizational responsibility.</strong></p>
+      <p>Every student deserves to know there is at least one trusted adult who:</p>
+      <ul>
+        <li>Knows their story.</li>
+        <li>Notices when they are absent.</li>
+        <li>Celebrates their successes.</li>
+        <li>Intervenes before they disengage.</li>
+        <li>Serves as a consistent point of connection throughout their school experience.</li>
+      </ul>
+      <p>When a school organizes around this intentionally — instead of assuming it will happen on its own — both student outcomes and educator well-being improve.</p>
+
+      <h2>The Four Pillars</h2>
+
+      <div class="pillar">
+        <h3>1. Every Student Is Known</h3>
+        <p>Relationship mapping gives a school a living picture of student-adult connection. Instead of asking "who has this student on their caseload," the question becomes: who knows this student well enough that they'd actually seek that adult out on a hard day? That shifts connection from a chance encounter to an intentional practice.</p>
+      </div>
+      <div class="pillar">
+        <h3>2. Connectedness Drives Student Success</h3>
+        <p>Connection is treated as a leading indicator, not a byproduct of achievement. Students who experience real connectedness are more likely to attend consistently, stay engaged, seek help before reaching crisis, and remain enrolled through graduation. ESK treats relationships as a foundational support underneath nearly every Early Warning Indicator — not a nice-to-have alongside them.</p>
+      </div>
+      <div class="pillar">
+        <h3>3. Belonging Is Built by Culture</h3>
+        <p>Belonging can't be assigned to one counselor or one mentor program. It has to be shared across the whole staff — shared ownership, collaborative leadership, and a culture where relational work is recognized as essential work, not "extra" work layered onto an already full plate.</p>
+      </div>
+      <div class="pillar">
+        <h3>4. Supporting Students Also Supports Teachers</h3>
+        <p>Teachers burn out carrying invisible emotional labor — worrying alone about a struggling student, feeling solely responsible for a caseload of high-need kids, with no system for sharing that weight. ESK distributes relational responsibility across the building. Instead of one teacher quietly carrying twenty high-needs students, the school builds a real network of trusted adults — which means shared responsibility, collaborative intervention, and less compassion fatigue.</p>
+      </div>
+
+      <blockquote>When schools intentionally organize around authentic relationships, students experience greater belonging, educators experience greater purpose and less burnout, and the organization becomes more resilient.</blockquote>
+
+      <h2>Why This Matters Where I Work</h2>
+      <p>Keeping students in school and connected isn't just about grades. In a rural community with limited outside resources, school is often the most consistent, most protective place a student has access to. Staying enrolled means a student keeps earning their education — a real, tangible way to interrupt cycles of poverty and abuse, and to become harder to prey upon. The relationships built through this framework aren't a soft add-on to academics. For some students, they're the difference between disengaging entirely and staying long enough to build a different future.</p>
+
+      <div class="callout">
+        <strong>A note on outcomes.</strong> Since implementing this framework, we've seen real, encouraging movement in the Early Warning Indicators that matter most — attendance, disclosed risk, and staff-reported connectedness. My dissertation research is currently underway to formally study and validate those outcomes through a rigorous case study. I want to be careful not to overstate results ahead of that research — but the early, lived signal is part of why I'm building this into something other schools can use.
+      </div>
+
+      <h2>Where This Is Headed</h2>
+      <p>Every Student Known moves a school from reactive to proactive, from isolated interventions to coordinated support, from individual responsibility to shared ownership, from "students at risk" to students who are actually known. That's the whole premise — not a slogan, a working operating principle for how a building runs.</p>
+      <p>I believe this is how we help heal a community: one student, one honest dot of known-ness at a time.</p>
+
+      <div class="cta-row">
+        <a href="index.html#contact" class="btn">Join the list</a>
+        <a href="index.html#framework" class="back-link">See how the tracking sheet works →</a>
+      </div>
+    </article>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Every Student Known.</span>
+    <span>everystudentknown.com · everystudentknown.org</span>
+  </div>
+</footer>
+
+</body>
+</html>
